@@ -59,7 +59,7 @@ macro(omr_os_global_setup)
 
 
 	set(CMAKE_ASM-ZOS_FLAGS "${OMR_GLOBAL_FLAGS}")
-	set(OMR_GLOBAL_FLAGS "${OMR_GLOBAL_FLAGS} -qnosearch -I${CMAKE_SOURCE_DIR}/util/a2e/headers -I/usr/include")
+	set(OMR_GLOBAL_FLAGS "${OMR_GLOBAL_FLAGS} -I${CMAKE_SOURCE_DIR}/util/a2e/headers -I/usr/include")
 	# Specify the minimum arch for 64-bit programs
 	#TODO this is a gross hack
 

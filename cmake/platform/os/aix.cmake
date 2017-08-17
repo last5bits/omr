@@ -16,11 +16,19 @@
 #    Multiple authors (IBM Corp.) - initial implementation and documentation
 ###############################################################################
 
-set(OMR_OS_DEFINITIONS 
-	OSX
-	_FILE_OFFSET_BITS=64
+set(OMR_OS_DEFINITIONS
+	RS6000
+	AIXPPC
+	_LARGE_FILES
+	_ALL_SOURCE
 )
 
 set(OMR_OS_COMPILE_OPTIONS
-	-pthread
+	-q64
 )
+
+if(OMR_ENV_DATA64)
+	set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -q64")
+	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -q64")
+	set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -q64")
+endif()

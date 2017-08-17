@@ -31,6 +31,10 @@ message(STATUS "CMAKE_CROSSCOMPILING=${CMAKE_CROSSCOMPILING}")
 
 omr_detect_system_information()
 
+if(NOT OMR_HOST_OS STREQUAL "zos")
+	enable_language(ASM)
+endif()
+
 # Pickup OS info 
 include(${OMR_ROOT}/cmake/platform/os/${OMR_HOST_OS}.cmake)
 

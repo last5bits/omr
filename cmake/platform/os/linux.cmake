@@ -21,7 +21,16 @@ set(OMR_OS_DEFINITIONS
 	_FILE_OFFSET_BITS=64
 )
 
-set(OMR_OS_COMPILE_OPTIONS
-	-pthread
-)
+if(OMR_ENV_DATA64)
+	set(OMR_OS_COMPILE_OPTIONS
+		-pthread
+		-m64
+	)
+else()
+	set(OMR_OS_COMPILE_OPTIONS
+		-pthread
+		-m32
+		-msse2
+	)
+endif()
 

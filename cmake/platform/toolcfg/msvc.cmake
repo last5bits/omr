@@ -35,6 +35,12 @@ macro(omr_toolconfig_global_setup)
 		list(APPEND common_flags ${OMR_WARNING_AS_ERROR_FLAG})
 		# TODO we also want to be setting warning as error on linker flags
 	endif()
+	
+	if(OMR_ENV_DATA64)
+		set(TARGET_MACHINE AMD64)
+	else()
+		set(TARGET_MACHINE i386)
+	endif()
 
 	set(linker_common "-subsystem:console -machine:${TARGET_MACHINE}")
 	if(NOT OMR_ENV_DATA64)
