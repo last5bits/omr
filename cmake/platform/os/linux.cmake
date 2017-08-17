@@ -34,3 +34,8 @@ else()
 	)
 endif()
 
+macro(omr_os_global_setup)
+	if(OMR_ARCH_S390)
+		enable_language(ASM-ATT)
+	endif()
+endmacro(omr_os_global_setup)

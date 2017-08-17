@@ -68,6 +68,12 @@ macro(tr_detect_system_information)
 		else()
 			jit_not_ready()
 		endif()
+	elseif(OMR_ARCH_S390)
+		set(TR_HOST_ARCH    z     CACHE INTERNAL "The architecture directory used for the compiler code (x, p, or z)")
+		list(APPEND TR_COMPILE_DEFINITIONS TR_HOST_S390 TR_TARGET_S390)
+		set(TR_HOST_BITS    64    CACHE INTERNAL  "Bitness of the target architecture")
+		set(CMAKE_ASM-ATT_FLAGS "-noexecstack -march=z9-109" CACHE INTERNAL "ASM FLags")
+		list(APPEND TR_COMPILE_DEFINITIONS TR_HOST_64BIT TR_TARGET_64BIT)
 	else()
 		jit_not_ready()
 	endif()
@@ -256,14 +262,14 @@ function(create_omr_compiler_library)
    set(${COMPILER_NAME}_DEFINES ${COMPILER_DEFINES}       CACHE INTERNAL "Defines for compiler ${COMPILER_NAME}") 
    set(${COMPILER_NAME}_INCLUDES 
       ${${COMPILER_NAME}_ROOT}/${TR_TARGET_ARCH}/${TR_TARGET_SUBARCH}
-      ${${COMPILER_NAME}_ROOT}/${TR_TARGET_ARCH} 
+      ${${COMPILER_NAME}_ROOT}/${TR_TARGET_ARCH}
       ${${COMPILER_NAME}_ROOT} 
       ${OMR_ROOT}/compiler/${TR_TARGET_ARCH}/${TR_TARGET_SUBARCH}
       ${OMR_ROOT}/compiler/${TR_TARGET_ARCH} 
       ${OMR_ROOT}/compiler 
       ${OMR_ROOT}
       ${COMPILER_INCLUDES}
-      CACHE INTERNAL "Include header list for ${COMPILER}")
+      CACHE INTERNAL "Include header list for ${COMPILER_NAME}")
 
    message("${COMPILER_NAME}_ROOT = ${${COMPILER_NAME}_ROOT}") 
 
@@ -330,6 +336,8 @@ function(create_omr_compiler_library)
 
    if(${TR_TARGET_ARCH} STREQUAL "x")
       add_compiler_subdirectory(x)
+   elseif(${TR_TARGET_ARCH} STREQUAL "z")
+      add_compiler_subdirectory(z)
    endif()
 
 

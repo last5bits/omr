@@ -56,10 +56,14 @@ add_subdirectory(example/glue)
 include(cmake/platform.cmake)
 include(cmake/config.cmake)
 
+if(NOT CMAKE_SYSTEM_PROCESSOR MATCHES "s390x")
+    enable_language(ASM)
+endif()
+
 enable_testing()
 
 #include current source dir and current bin dir automatically
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
+#set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 include_directories(
   ${PROJECT_BINARY_DIR}
