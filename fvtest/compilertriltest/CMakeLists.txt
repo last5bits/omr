@@ -32,6 +32,7 @@ add_executable(comptest
    ILValidatorTest.cpp
    ArithmeticTest.cpp
    ShiftAndRotateTest.cpp
+   IficmpTest.cpp
 )
 
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/../tril/tril ${CMAKE_CURRENT_BINARY_DIR}/tril)
